@@ -123,7 +123,7 @@ task.spawn(function()
     text.Position = UDim2.new(0.5, -250, 1, -60)
     text.BackgroundTransparency = 1
 
-    text.Text = "Doors hard mode succesfully executed!"
+    text.Text = "Doors hard mode legacy succesfully executed!"
     text.Font = Enum.Font.Oswald
     text.TextSize = 24
     text.TextColor3 = Color3.fromRGB(0, 170, 255)
@@ -150,13 +150,13 @@ end)
 
 ---====== create text ======---
 game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
-require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Doors hard mode is now active!", true)
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Doors hard mode legacy is now active!", true)
 wait(4)
 require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Fixed by noob_playzz", true)
 wait(4)
 require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("Credits to to Jun for the guiding light candle and StovenChaos for old seek", true)
 wait(4)
-require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("I know yall missed this mode", true)
+require(game.Players.LocalPlayer.PlayerGui.MainUI.Initiator.Main_Game).caption("I know yall missed this mode especially the old version", true)
 
 ---====== define S_load ======---
 local function s_Load(targetUrl)
