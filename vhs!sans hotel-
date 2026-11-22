@@ -1,82 +1,168 @@
-local Creator = loadstring(game:HttpGet("https://pastebin.com/raw/0fSnvfGt"))()
+---====== load spawner ======---
+local Creator = loadstring(game:HttpGet("https://pastebin.com/raw/0fSnvfGt"))() 
+---====== Create entity ======---
+local entity = Creator.createEntity({
+    CustomName = "vhs!sans", -- Custom name of your entity
+    Model = "https://github.com/firerygames055/Doors-hard-mode-Fixed/raw/refs/heads/main/VHS%20Sans.rbxm", -- Can be GitHub file or rbxassetid
+    Speed = 21, -- Percentage, 100 = default Rush speed
+    DelayTime = 3, -- Time before starting cycles (seconds)
+    HeightOffset = 0,
+    CanKill = true,
+    KillRange = 120,
+    BreakLights = true,
+    BackwardsMovement = true,
+    FlickerLights = {
+        false, -- Enabled/Disabled
+        0, -- Time (seconds)
+    },
+    Cycles = {
+        Min = 1,
+        Max = 1,
+        WaitTime = 3,
+    },
+    CamShake = {
+        true, -- Enabled/Disabled
+        {3.5, 20, 0.1, 1}, -- Shake values (don't change if you don't know)
+        100, -- Shake start distance (from Entity to you)
+    },
+    Jumpscare = {
+        false, -- Enabled/Disabled
+        {
+            Image1 = "rbxassetid://11278229112", -- Image1 url
+            Image2 = "rbxassetid://11278229112", -- Image2 url
+            Shake = true,
+            Sound1 = {
+                10483790459, -- SoundId
+                { Volume = 0.5 }, -- Sound properties
+            },
+            Sound2 = {
+                5263560566, -- SoundId
+                { Volume = 0.5 }, -- Sound properties
+            },
+            Flashing = {
+                true, -- Enabled/Disabled
+                Color3.fromRGB(50, 115, 108), -- Color
+            },
+            Tease = {
+                false, -- Enabled/Disabled
+                Min = 1,
+                Max = 5,
+            },
+        },
+    },
+    CustomDialog = {"You died to an entity known as vhs!sans", "Whe. it is near you will see a strong red light", "Immedietly hide when you see this", "Good luck"}, -- Custom death message
+})
+entity.Debug.OnEntitySpawned = function(entityTable)
+    print("Entity has spawned:", entityTable.Model)
+end
 
-                -- Create entity
-                local entity2 = Creator.createEntity({
-                    CustomName = "Vhs!Sans", -- Custom name of your entity
-                    Model = "11508694248", -- Can be GitHub file or rbxassetid
-                    Speed = 21, -- Percentage, 100 = default Rush speed
-                    DelayTime = 3, -- Time before starting cycles (seconds)
-                    HeightOffset = 0,
-                    CanKill = true,
-                    KillRange = 120,
-                    BreakLights = true,
-                    BackwardsMovement = false,
-                    FlickerLights = {
-                        true, -- Enabled/Disabled
-                        1, -- Time (seconds)
-                    },
-                    Cycles = {
-                        Min = 1,
-                        Max = 1,
-                        WaitTime = 3,
-                    },
-                    CamShake = {
-                        true, -- Enabled/Disabled
-                        {3.5, 20, 0.1, 1}, -- Shake values (don't change if you don't know)
-                        100, -- Shake start distance (from Entity to you)
-                    },
-                    Jumpscare = {
-                        false, -- Enabled/Disabled
-                        {
-                            Image1 = "rbxassetid://10483855823", -- Image1 url
-                            Image2 = "rbxassetid://104839999"
-                              ---====== advanced ======---
-                          MyEntity:SetCallback("OnSpawned", function()
-    print("Entity has spawned")
-end)
+entity.Debug.OnEntityDespawned = function(entityTable)
+    print("Entity has despawned:", entityTable.Model)
+end
 
-Entity:SetCallback("OnStartMoving", function()
-    print("Entity has started moving")
-end)
+entity.Debug.OnEntityStartMoving = function(entityTable)
+    print("Entity has started moving:", entityTable.Model)
+end
 
-Entity:SetCallback("OnEnterRoom", function(room: Model, firstTime: boolean)
-    if firstTime == true then
-        print("Entity has entered room: ".. room.Name.. " for the first time")
-    else
-        print("Entity has entered room: ".. room.Name.. " again")
-    end
-end)
+entity.Debug.OnEntityFinishedRebound = function(entityTable)
+    print("Entity has finished rebound:", entityTable.Model)
+end
 
-Entity:SetCallback("OnLookAt", function(lineOfSight: boolean)
-	if lineOfSight == true then
-		print("Player is looking at entity")
-	else
-		print("Player view is obstructed by something")
+entity.Debug.OnEntityEnteredRoom = function(entityTable, room)
+    print("Entity:", entityTable.Model, "has entered room:", room)
+end
+
+entity.Debug.OnLookAtEntity = function(entityTable)
+    print("Player has looked at entity:", entityTable.Model)
+end
+
+entity.Debug.OnDeath = function(entityTable)
+    warn("Player has died.")
+	local Players = game:GetService("Players")
+	local TweenService = game:GetService("TweenService")
+
+	local player = Players.LocalPlayer
+	local playerGui = player:WaitForChild("PlayerGui")
+
+	-- GUI
+	local gui = Instance.new("ScreenGui")
+	gui.IgnoreGuiInset = true
+	gui.DisplayOrder = 999999
+	gui.ResetOnSpawn = false
+	gui.Parent = playerGui
+
+	-- FLASH
+	local flash = Instance.new("Frame")
+	flash.Size = UDim2.new(1,0,1,0)
+	flash.BorderSizePixel = 0
+	flash.BackgroundColor3 = Color3.new(0,0,0)
+	flash.ZIndex = 10
+	flash.Parent = gui
+
+	-- IMAGE
+	local image = Instance.new("ImageLabel")
+	image.AnchorPoint = Vector2.new(0.5, 0.5)
+	image.Position = UDim2.new(0.5, 0, 0.5, 0)
+	image.Size = UDim2.new(0, 300, 0, 420)
+	image.BackgroundTransparency = 1
+	image.Image = "rbxassetid://0"
+	image.ZIndex = 11
+	image.Parent = gui
+
+	-- ROBLOX SOUND (YOUR ORIGINAL SYSTEM, BUT SAFE)
+	local url = "https://github.com/anars/blank-audio/raw/refs/heads/master/1-second-of-silence.mp3"
+	local file = "A-200 jumpscare.mp3"
+
+	if not isfile(file) then
+		writefile(file, game:HttpGet(url))
 	end
-end)
 
-Entity:SetCallback("OnRebounding", function(startOfRebound: boolean)
-    if startOfRebound == true then
-        print("Entity has started rebounding")
-	else
-        print("Entity has finished rebounding")
-	end
-end)
+	local sound = Instance.new("Sound")
+	sound.SoundId = getcustomasset(file)
+	sound.Volume = 10
+	sound.Parent = gui
+	task.spawn(function()
+		sound:Play()
+	end)
 
-Entity:SetCallback("OnDespawning", function()
-    print("Entity is despawning")
-end)
+	-- ZOOM
+	TweenService:Create(
+		image,
+		TweenInfo.new(1.2, Enum.EasingStyle.Exponential, Enum.EasingDirection.Out),
+		{Size = UDim2.new(0, 3500, 0, 3500)}
+	):Play()
 
-MyEntity:SetCallback("OnDespawned", function()
-    print("Entity has despawned")
-end)
+	-- LOOP (mobile stable)
+	task.spawn(function()
+		local duration = 1.2
+		local start = os.clock()
 
-Entity:SetCallback("OnDamagePlayer", function(newHealth: number)
-	if newHealth <= 0 then
-		print("Entity has killed the player")
-	else
-		print("Entity has damaged the player")
-	end
-    end)
-      ---====== Run entity ======---
-    Creator.runEntity(entity)
+		while true do
+			local t = os.clock() - start
+			if t >= duration then break end
+
+			-- FLASH
+			if math.random(1,2) == 1 then
+				flash.BackgroundColor3 = Color3.fromRGB(255,0,0)
+			else
+				flash.BackgroundColor3 = Color3.fromRGB(0,0,0)
+			end
+
+			-- SHAKE
+			image.Rotation = math.random(-5,5)
+
+			local offsetX = math.random(-25,25)
+			local offsetY = math.random(-25,25)
+
+			image.Position = UDim2.new(0.5, offsetX, 0.5, offsetY)
+
+			task.wait(0.01)
+		end
+
+		gui:Destroy()
+	end)
+end
+------------------------
+
+-- Run the created entity
+Creator.runEntity(entity)
