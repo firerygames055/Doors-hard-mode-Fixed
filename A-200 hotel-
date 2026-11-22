@@ -50,7 +50,7 @@ local entity = Creator.createEntity({
             },
         },
     },
-    CustomDialog = {"I couldn't figure out who you died to", "This entity is faster than rush and ambush", "It will rebound 2 times", "Use what you have learnt from ambush!"}, -- Custom death message
+    CustomDialog = {"you died to an entity known as A-200", "This entity is faster than rush and ambush", "It will rebound 4 times", "Use what you have learnt from ambush!"}, -- Custom death message
 })
 entity.Debug.OnEntitySpawned = function(entityTable)
     print("Entity has spawned:", entityTable.Model)
