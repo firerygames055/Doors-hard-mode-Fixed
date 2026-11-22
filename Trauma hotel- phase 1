@@ -106,7 +106,7 @@ entity.Debug.OnDeath = function(entityTable)
 	image.Position = UDim2.new(0.5, 0, 0.5, 0)
 	image.Size = UDim2.new(0, 300, 0, 420)
 	image.BackgroundTransparency = 1
-	image.Image = "rbxassetid://96962729051841"
+	image.Image = "rbxassetid://0"
 	image.ZIndex = 11
 	image.Parent = gui
 
