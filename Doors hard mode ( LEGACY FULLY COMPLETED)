@@ -176,14 +176,14 @@ end)
 
 task.spawn(function()
     while true do
-        task.wait(math.random(300, 500))
+        task.wait(math.random(250, 400))
         s_Load("https://raw.githubusercontent.com/firerygames055/Doors-hard-mode-Fixed/refs/heads/main/Trauma%20hotel-%20PHASE%202")
     end
 end)
 
 task.spawn(function()
     while true do
-        task.wait(math.random(400, 700))
+        task.wait(math.random(400, 600))
         s_Load("https://raw.githubusercontent.com/firerygames055/Doors-hard-mode-Fixed/refs/heads/main/vhs!sans%20hotel-")
     end
 end)
