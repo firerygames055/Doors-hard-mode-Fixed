@@ -2,47 +2,13 @@
 loadstring(game:HttpGet("https://raw.githubusercontent.com/MuhXd/DoorSuff/main/OtherSuff/Sprint"))()
 ---====== old seek ======---
 loadstring(game:HttpGet("https://raw.githubusercontent.com/firerygames055/Doors-hard-mode-Fixed/refs/heads/main/Old%20seek%20credits%20to%20StovenChaos"))()
+---====== load the update log ======---
+task.spawn(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/firerygames055/Doors-hard-mode-Fixed/refs/heads/main/Hard%20mode%20info"))()
+end)
 --Load Map Floor 2
 task.spawn(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/trungdepth-dot/Floor-2/refs/heads/main/Floor-2-mapp"))()
-end)
--- Lighting & Fog
-task.spawn(function()
-    local Lighting = game:GetService("Lighting")
-
-    Lighting.FogColor = Color3.fromRGB(25, 20, 45)
-    Lighting.FogStart = 0
-    Lighting.FogEnd = 60
-    Lighting.ClockTime = 0
-    Lighting.Brightness = 0.5
-    Lighting.GlobalShadows = true
-    Lighting.ExposureCompensation = -0.5
-    Lighting.Ambient = Color3.fromRGB(15, 12, 25)
-    Lighting.OutdoorAmbient = Color3.fromRGB(5, 5, 10)
-
-    for _, object in pairs(workspace:GetDescendants()) do
-        if object:IsA("BasePart") and (object.Name == "LightPart" or object.Name == "Lamp") then
-            local pointLight = Instance.new("PointLight")
-            pointLight.Color = Color3.fromRGB(255, 190, 110)
-            pointLight.Brightness = 1.8
-            pointLight.Range = 14
-            pointLight.Shadows = true
-            pointLight.Parent = object
-
-            object.Material = Enum.Material.Neon
-            object.Transparency = 0.2
-        end
-    end
-
-    local colorCorrection = Lighting:FindFirstChild("GameColor")
-    if not colorCorrection then
-        colorCorrection = Instance.new("ColorCorrectionEffect")
-        colorCorrection.Name = "GameColor"
-        colorCorrection.Parent = Lighting
-    end
-
-    colorCorrection.Contrast = 0.1
-    colorCorrection.Saturation = -0.05
 end)
 -- Background Sound
 task.spawn(function()
@@ -57,7 +23,7 @@ task.spawn(function()
 end)
 -- Door Color Classification
 task.spawn(function()
-    local Color_MainDoor = Color3.fromRGB(141, 123, 110)
+    local Color_MainDoor = Color3.fromRGB(60, 60, 60)
     local Color_SideDoor = Color3.fromRGB(60, 60, 60)
     local DoorMaterial = Enum.Material.Slate
 
@@ -123,7 +89,7 @@ task.spawn(function()
     text.Position = UDim2.new(0.5, -250, 1, -60)
     text.BackgroundTransparency = 1
 
-    text.Text = "Doors hard mode legacy succesfully executed!"
+    text.Text = "Doors hard mode legacy succesfully executed! (THIS IS NOT OFFICIAL)"
     text.Font = Enum.Font.Oswald
     text.TextSize = 24
     text.TextColor3 = Color3.fromRGB(0, 170, 255)
