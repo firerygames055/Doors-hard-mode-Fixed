@@ -1,0 +1,82 @@
+---====== define p_Gui ======---
+local p_Gui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+local m_UI = p_Gui:WaitForChild("MainUI")
+---====== update log ======---
+task.spawn(function()
+    task.wait(1)
+    pcall(function()
+        local TS = game:GetService("TweenService")
+        local scr = Instance.new("ScreenGui")
+        scr.Name = "HardModeUpdatesUI"
+        scr.ResetOnSpawn = false
+        scr.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+        scr.Parent = p_Gui
+
+        local btn = Instance.new("ImageButton")
+        btn.Name = "InfoButton"
+        btn.Size = UDim2.new(0, 85, 0, 85)
+        btn.Position = UDim2.new(1, -100, 0.5, -42)
+        btn.BackgroundTransparency = 1
+        btn.Image = "rbxassetid://80359696066336"
+        btn.Parent = scr
+
+        local frm = Instance.new("Frame")
+        frm.Name = "InfoMenu"
+        frm.Size = UDim2.new(0, 420, 0, 260)
+        
+        local pos_H = UDim2.new(0.5, -210, 1, 50)
+        local pos_V = UDim2.new(0.5, -210, 0.5, -130)
+        
+        frm.Position = pos_H
+        frm.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+        frm.BorderSizePixel = 2
+        frm.BorderColor3 = Color3.fromRGB(135, 135, 135)
+        frm.Visible = false
+        frm.Parent = scr
+
+        local lbl = Instance.new("TextLabel")
+        lbl.Size = UDim2.new(1, -30, 1, -60)
+        lbl.Position = UDim2.new(0, 15, 0, 15)
+        lbl.BackgroundTransparency = 1
+        lbl.TextColor3 = Color3.fromRGB(240, 240, 240)
+        lbl.TextSize = 18
+        lbl.Font = Enum.Font.SourceSans
+        lbl.TextWrapped = true
+        lbl.TextXAlignment = Enum.TextXAlignment.Center
+        lbl.TextYAlignment = Enum.TextYAlignment.Center
+        lbl.Text = "Doors hard mode updates= trauma's jumpscare now has the sound, Updated the floor 2 theme"
+        lbl.Parent = frm
+
+        local cls = Instance.new("TextButton")
+        cls.Name = "CloseButton"
+        cls.Size = UDim2.new(0, 130, 0, 35)
+        cls.Position = UDim2.new(0.5, -65, 1, -45)
+        cls.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+        cls.TextColor3 = Color3.fromRGB(255, 255, 255)
+        cls.TextSize = 16
+        cls.Font = Enum.Font.SourceSansBold
+        cls.Text = "Close"
+        cls.Parent = frm
+
+        local isOpen = false
+        local t_Info = TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out)
+
+        local function toggle()
+            if not isOpen then
+                isOpen = true
+                frm.Visible = true
+                TS:Create(frm, t_Info, {Position = pos_V}):Play()
+            else
+                isOpen = false
+                local c_Tween = TS:Create(frm, t_Info, {Position = pos_H})
+                c_Tween:Play()
+                c_Tween.Completed:Connect(function()
+                    if not isOpen then frm.Visible = false end
+                end)
+            end
+        end
+
+        btn.MouseButton1Click:Connect(toggle)
+        cls.MouseButton1Click:Connect(toggle)
+    end)
+end)
