@@ -110,8 +110,8 @@ entity.Debug.OnDeath = function(entityTable)
 	image.Parent = gui
 
 	-- ROBLOX SOUND (YOUR ORIGINAL SYSTEM, BUT SAFE)
-	local url = "https://github.com/anars/blank-audio/raw/refs/heads/master/1-second-of-silence.mp3"
-	local file = "A-200 jumpscare.mp3"
+	local url = "https://github.com/firerygames055/Doors-hard-mode-Fixed/raw/refs/heads/main/Trauma%20jumpscare%20sound.mp3"
+	local file = "Trauma jumpscare.mp3"
 
 	if not isfile(file) then
 		writefile(file, game:HttpGet(url))
