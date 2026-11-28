@@ -80,3 +80,17 @@ task.spawn(function()
         cls.MouseButton1Click:Connect(toggle)
     end)
 end)
+---====== destroy the GUI after the door is opened ======---
+game.ReplicatedStorage.GameData.LatestRoom.Changed:Wait()
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Wait for the UI to be instantiated by that specific script
+local hardModeUI = playerGui:WaitForChild("HardModeUpdatesUI", 5)
+
+if hardModeUI then
+    hardModeUI:Destroy()
+    print("Hard Mode Updates UI has been destroyed.")
+else
+    warn("HardModeUpdatesUI was not found within the expected time.")
+end
